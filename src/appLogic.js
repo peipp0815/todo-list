@@ -1,8 +1,9 @@
 class project {
-  constructor(name) {
-    this.id = self.crypto.randomUUID();
+  constructor(name, deletable) {
+    this.id = String(self.crypto.randomUUID());
     this.name = name;
     this.todoList = [];
+    this.deletable = deletable;
   }
   removeTodo(todoID) {
     const index = this.todoList.findIndex((item) => item.id === todoID);
@@ -20,20 +21,20 @@ class todo {
     this.priority = priority;
     this.notes = notes;
     this.checklist = checklist;
-    this.id = self.crypto.randomUUID();
+    this.id = String(self.crypto.randomUUID());
     this.proj = proj;
   }
 }
 
 const ListOfProjects = [];
 
-function createProject(name) {
-  const newProject = new project(name);
+function createProject(name, deletable = true) {
+  const newProject = new project(name, deletable);
   ListOfProjects.push(newProject);
   return newProject;
 }
 
-const defaultProject = createProject("Default Project");
+const defaultProject = createProject("Default Project", false);
 
 function createTodo(title, description, dueDate, priority, notes, checklist) {
   const newTodo = new todo(
@@ -50,12 +51,30 @@ function createTodo(title, description, dueDate, priority, notes, checklist) {
 }
 
 function reassignProject(td, proj) {
+  deleteTodo(td);
+  td.proj = proj.id;
+  proj.todoList.push(td);
+}
+
+function deleteTodo(td) {
   const index = ListOfProjects.findIndex((item) => item.id === td.proj);
   if (index > -1) {
     ListOfProjects[index].removeTodo(td.id);
   }
-  td.proj = proj;
-  proj.todoList.push(td);
+}
+
+function deleteProject(proj, preserveTodos) {
+  if (proj.deletable === true) {
+    if (preserveTodos === true) {
+      for (const td of proj.todoList) {
+        reassignProject(td, defaultProject);
+      }
+    }
+    const index = ListOfProjects.findIndex((item) => item.id === proj.id);
+    if (index > -1) {
+      ListOfProjects.splice(index, 1);
+    }
+  }
 }
 
 export {
@@ -64,4 +83,6 @@ export {
   defaultProject,
   createTodo,
   reassignProject,
+  deleteTodo,
+  deleteProject,
 };
