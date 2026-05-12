@@ -1,6 +1,6 @@
 class project {
   constructor(name, deletable) {
-    this.id = String(self.crypto.randomUUID());
+    this.id = self.crypto.randomUUID();
     this.name = name;
     this.todoList = [];
     this.deletable = deletable;
@@ -21,7 +21,7 @@ class todo {
     this.priority = priority;
     this.notes = notes;
     this.checklist = checklist;
-    this.id = String(self.crypto.randomUUID());
+    this.id = self.crypto.randomUUID();
     this.proj = proj;
   }
 }
