@@ -14,12 +14,11 @@ class project {
 }
 
 class todo {
-  constructor(title, description, dueDate, priority, notes, checklist, proj) {
+  constructor(title, description, dueDate, priority, checklist, proj) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
-    this.notes = notes;
     this.checklist = checklist;
     this.id = self.crypto.randomUUID();
     this.proj = proj;
@@ -34,15 +33,14 @@ function createProject(name, deletable = true) {
   return newProject;
 }
 
-const defaultProject = createProject("Default Project", false);
+const defaultProject = createProject("Inbox", false);
 
-function createTodo(title, description, dueDate, priority, notes, checklist) {
+function createTodo(title, description, dueDate, priority, checklist) {
   const newTodo = new todo(
     title,
     description,
     dueDate,
     priority,
-    notes,
     checklist,
     defaultProject.id,
   );

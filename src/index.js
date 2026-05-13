@@ -10,7 +10,7 @@ import {
 } from "./appLogic.js";
 
 const newProject = createProject("Mermaid");
-const newTodo = createTodo(1, 2, 3, 4, 5, 6);
+const newTodo = createTodo(1, 2, 3, 4, 5);
 console.log(newTodo);
 reassignProject(newTodo, newProject);
 deleteProject(newProject, true);
