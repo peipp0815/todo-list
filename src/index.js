@@ -8,6 +8,7 @@ import {
   deleteTodo,
   deleteProject,
 } from "./appLogic.js";
+import homeContent from "./pages/home.js";
 
 const newProject = createProject("Mermaid");
 const newTodo = createTodo(1, 2, 3, 4, 5);
@@ -18,3 +19,4 @@ deleteTodo(newTodo);
 
 console.log(defaultProject);
 console.log(ListOfProjects);
+homeContent();
