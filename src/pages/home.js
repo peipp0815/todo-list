@@ -8,7 +8,6 @@ function homeContent() {
 
   const newTodoButton = document.createElement("button");
   newTodoButton.textContent = "New Todo";
-  newTodoButton.classList.add("newTodoButton");
   newTodoButton.setAttribute("command", "show-modal");
   newTodoButton.setAttribute("commandfor", "new-todo");
   mainContent.appendChild(newTodoButton);

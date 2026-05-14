@@ -73,6 +73,7 @@ h6 {
   display: flex;
 
   font-family: "Roboto Slab", serif;
+  background-color: rgb(239, 234, 225);
 }
 
 nav {

@@ -45,6 +45,7 @@ function createTodo(title, description, dueDate, priority, checklist) {
     defaultProject.id,
   );
   defaultProject.todoList.push(newTodo);
+  console.log(defaultProject);
   return newTodo;
 }
 
