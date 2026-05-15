@@ -22,6 +22,10 @@ class todo {
     this.checklist = checklist;
     this.id = self.crypto.randomUUID();
     this.proj = proj;
+    this.done = false;
+  }
+  changeDone() {
+    this.done = !this.done;
   }
 }
 

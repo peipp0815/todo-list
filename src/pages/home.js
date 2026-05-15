@@ -1,3 +1,5 @@
+import { displayProjects } from "../DOMlogic.js";
+
 function homeContent() {
   const mainContent = document.getElementById("main-content");
   mainContent.textContent = "";
@@ -15,6 +17,8 @@ function homeContent() {
   const projects = document.createElement("div");
   projects.setAttribute("id", "projects");
   mainContent.appendChild(projects);
+
+  displayProjects();
 }
 
 export default homeContent;

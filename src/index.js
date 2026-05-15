@@ -1,6 +1,6 @@
 import "./styles.css";
 import homeContent from "./pages/home.js";
-import { attachCreateTodo } from "./DOMlogic.js";
+import { attachCreateTodo, displayProjects } from "./DOMlogic.js";
 
 homeContent();
 

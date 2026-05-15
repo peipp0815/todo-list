@@ -73,7 +73,7 @@ h6 {
   display: flex;
 
   font-family: "Roboto Slab", serif;
-  background-color: rgb(239, 234, 225);
+  background-color: rgb(244, 224, 214);
 }
 
 nav {
@@ -101,4 +101,18 @@ h1 {
 
 #main-content button {
   width: fit-content;
+}
+
+#projects {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.project-container {
+  width: 250px;
+  height: 250px;
+  background-color: rgb(184, 201, 153);
+  border-radius: 10px;
+  padding: 16px;
+  margin: 16px 0px;
 }
