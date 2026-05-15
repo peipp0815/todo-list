@@ -1,4 +1,4 @@
-import { createTodo, ListOfProjects } from "./appLogic.js";
+import { createTodo, ListOfProjects, defaultProject } from "./appLogic.js";
 
 function attachCreateTodo() {
   const btn = document.getElementById("add-new-todo");
@@ -15,11 +15,34 @@ function attachCreateTodo() {
     document.getElementById("todo-description").value = "";
     document.getElementById("todo-dueDate").value = "";
     document.getElementById("todo-priority").value = "";
+
+    displayTodos(defaultProject);
   });
 }
 
 function displayTodos(proj) {
-  proj.todoList.forEach((td) => {});
+  const todosContainers = document.querySelectorAll("[data-projectid]");
+
+  todosContainers.forEach((element) => {
+    if (element.getAttribute("data-projectid") === proj.id) {
+      const todosContainer = element;
+      todosContainer.textContent = "";
+      proj.todoList.forEach((td) => {
+        const todoContainer = document.createElement("div");
+        todoContainer.classList.add("todo-container");
+
+        const todoTitle = document.createElement("div");
+        todoTitle.textContent = td.title;
+        todoContainer.appendChild(todoTitle);
+
+        const todoDueDate = document.createElement("div");
+        todoDueDate.textContent = td.dueDate;
+        todoContainer.appendChild(todoDueDate);
+
+        todosContainer.appendChild(todoContainer);
+      });
+    }
+  });
 }
 
 function displayProjects() {
@@ -30,8 +53,16 @@ function displayProjects() {
     const projectName = document.createElement("h3");
     projectName.textContent = proj.name;
     projectContainer.appendChild(projectName);
+
+    const todosContainer = document.createElement("div");
+    todosContainer.classList.add("todos-container");
+    todosContainer.setAttribute("data-projectid", proj.id);
+    projectContainer.appendChild(todosContainer);
+
     projects.appendChild(projectContainer);
+
+    displayTodos(proj);
   });
 }
 
-export { attachCreateTodo, displayProjects };
+export { attachCreateTodo, displayProjects, displayTodos };
