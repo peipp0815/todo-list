@@ -14,14 +14,14 @@ class project {
 }
 
 class todo {
-  constructor(title, description, dueDate, priority, checklist, proj) {
+  constructor(title, description, dueDate, priority, checklist, projid) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
     this.checklist = checklist;
     this.id = self.crypto.randomUUID();
-    this.proj = proj;
+    this.projid = projid;
     this.done = false;
   }
   changeDone() {
@@ -39,17 +39,22 @@ function createProject(name, deletable = true) {
 
 const defaultProject = createProject("Inbox", false);
 
-function createTodo(title, description, dueDate, priority, checklist) {
+function createTodo(title, description, dueDate, priority, checklist, projid) {
   const newTodo = new todo(
     title,
     description,
     dueDate,
     priority,
     checklist,
-    defaultProject.id,
+    projid,
   );
-  defaultProject.todoList.push(newTodo);
-  console.log(defaultProject);
+  const index = ListOfProjects.findIndex((item) => item.id === projid);
+  console.log(index);
+  console.log(projid);
+  if (index > -1) {
+    ListOfProjects[index].todoList.push(newTodo);
+  }
+  console.log("yohoho");
   return newTodo;
 }
 

@@ -9,20 +9,27 @@ import {
 function attachCreateTodo() {
   const btn = document.getElementById("add-new-todo");
   btn.addEventListener("click", () => {
+    const projid = document.getElementById("todo-project").value;
+    console.log(projid);
     createTodo(
       document.getElementById("todo-title").value,
       document.getElementById("todo-description").value,
       document.getElementById("todo-dueDate").value,
       document.getElementById("todo-priority").value,
       "checklist",
+      projid,
     );
 
     document.getElementById("todo-title").value = "";
     document.getElementById("todo-description").value = "";
     document.getElementById("todo-dueDate").value = "";
     document.getElementById("todo-priority").value = "";
-
-    displayTodos(defaultProject);
+    document.getElementById("todo-project").value = defaultProject.id;
+    console.log(ListOfProjects);
+    const index = ListOfProjects.findIndex((item) => item.id === projid);
+    if (index > -1) {
+      displayTodos(ListOfProjects[index]);
+    }
   });
 }
 
@@ -92,8 +99,36 @@ function attachCreateProject() {
       document.getElementById("project-name").value = "";
 
       displayProjects();
+      dropdownListProjects();
     });
   });
 }
 
-export { attachCreateTodo, displayProjects, displayTodos, attachCreateProject };
+function dropdownListProjects() {
+  const newTodoForm = document.getElementById("new-todo-form");
+  //Create and append select list
+  const selectList = document.createElement("select");
+  selectList.id = "todo-project";
+  newTodoForm.prepend(selectList);
+
+  const label = document.createElement("label");
+  label.setAttribute("for", "todo-project");
+  label.textContent = "Project";
+  newTodoForm.prepend(label);
+
+  //Create and append the options
+  for (let i = 0; i < ListOfProjects.length; i++) {
+    const option = document.createElement("option");
+    option.value = ListOfProjects[i].id;
+    option.text = ListOfProjects[i].name;
+    selectList.appendChild(option);
+  }
+}
+
+export {
+  attachCreateTodo,
+  displayProjects,
+  displayTodos,
+  attachCreateProject,
+  dropdownListProjects,
+};

@@ -4,9 +4,10 @@ import {
   attachCreateProject,
   attachCreateTodo,
   displayProjects,
+  dropdownListProjects,
 } from "./DOMlogic.js";
 
 homeContent();
-
+dropdownListProjects();
 attachCreateTodo();
 attachCreateProject();
