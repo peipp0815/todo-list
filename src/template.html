@@ -12,9 +12,10 @@
         <button>Calendar</button>
         <button>Inbox</button>
         <button>Projects</button>
-        <button>New Project</button>
+        <button class="add-new-project">New Project</button>
       </nav>
       <div id="main-content"></div>
+
       <dialog id="new-todo">
         <form action="" method="dialog">
           <label for="todo-title">Title</label>
@@ -31,6 +32,14 @@
             <option value="p3">P3 / would be nice to get done</option>
           </select>
           <button id="add-new-todo">Add Todo</button>
+        </form>
+      </dialog>
+
+      <dialog id="new-project">
+        <form action="" method="dialog">
+          <label for="project-name">Name</label>
+          <input type="text" name="project-name" id="project-name" />
+          <button class="add-new-project">Add Project</button>
         </form>
       </dialog>
     </div>

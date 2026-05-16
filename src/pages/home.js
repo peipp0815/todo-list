@@ -14,6 +14,12 @@ function homeContent() {
   newTodoButton.setAttribute("commandfor", "new-todo");
   mainContent.appendChild(newTodoButton);
 
+  const newProjectButton = document.createElement("button");
+  newProjectButton.textContent = "New Project";
+  newProjectButton.setAttribute("command", "show-modal");
+  newProjectButton.setAttribute("commandfor", "new-project");
+  mainContent.appendChild(newProjectButton);
+
   const projects = document.createElement("div");
   projects.setAttribute("id", "projects");
   mainContent.appendChild(projects);

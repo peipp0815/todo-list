@@ -1,8 +1,13 @@
-import { createTodo, ListOfProjects, defaultProject } from "./appLogic.js";
+import {
+  createTodo,
+  ListOfProjects,
+  defaultProject,
+  createProject,
+} from "./appLogic.js";
 
 function attachCreateTodo() {
   const btn = document.getElementById("add-new-todo");
-  btn.addEventListener("click", (e) => {
+  btn.addEventListener("click", () => {
     createTodo(
       document.getElementById("todo-title").value,
       document.getElementById("todo-description").value,
@@ -46,8 +51,9 @@ function displayTodos(proj) {
 }
 
 function displayProjects() {
+  const projects = document.getElementById("projects");
+  projects.textContent = "";
   ListOfProjects.forEach((proj) => {
-    const projects = document.getElementById("projects");
     const projectContainer = document.createElement("div");
     projectContainer.classList.add("project-container");
     const projectName = document.createElement("h3");
@@ -65,4 +71,17 @@ function displayProjects() {
   });
 }
 
-export { attachCreateTodo, displayProjects, displayTodos };
+function attachCreateProject() {
+  const btns = document.querySelectorAll(".add-new-project");
+  btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      createProject(document.getElementById("project-name").value);
+
+      document.getElementById("project-name").value = "";
+
+      displayProjects();
+    });
+  });
+}
+
+export { attachCreateTodo, displayProjects, displayTodos, attachCreateProject };
