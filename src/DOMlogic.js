@@ -3,6 +3,7 @@ import {
   ListOfProjects,
   defaultProject,
   createProject,
+  deleteProject,
 } from "./appLogic.js";
 
 function attachCreateTodo() {
@@ -59,6 +60,17 @@ function displayProjects() {
     const projectName = document.createElement("h3");
     projectName.textContent = proj.name;
     projectContainer.appendChild(projectName);
+
+    if (proj.deletable === true) {
+      const deleteprojectBtn = document.createElement("button");
+      deleteprojectBtn.classList.add("delete-project");
+      deleteprojectBtn.textContent = "X";
+      projectContainer.appendChild(deleteprojectBtn);
+      deleteprojectBtn.addEventListener("click", () => {
+        deleteProject(proj, false);
+        displayProjects();
+      });
+    }
 
     const todosContainer = document.createElement("div");
     todosContainer.classList.add("todos-container");

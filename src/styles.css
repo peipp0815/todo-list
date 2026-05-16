@@ -82,6 +82,8 @@ nav {
 
   min-height: 100vh;
   background-color: darkolivegreen;
+
+  box-shadow: 2px 2px 2px 2px rgb(150, 125, 92);
 }
 
 h1 {
@@ -105,6 +107,7 @@ h1 {
 #projects {
   display: flex;
   flex-wrap: wrap;
+  gap: 8px;
 }
 
 .project-container {
@@ -115,9 +118,32 @@ h1 {
   padding: 16px;
   margin: 16px 0px;
   border: 5px ridge brown;
+  box-shadow: 2px 2px 2px rgb(150, 125, 92);
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  grid-template-rows: 30px 1fr;
+}
+
+.todos-container {
+  grid-row: 2;
+  grid-column: 1/-1;
 }
 
 .todo-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+#buttons {
+  display: flex;
+  gap: 8px;
+}
+
+#buttons button {
+  background-color: brown;
+  color: white;
+  border: 0;
+  box-shadow: 2px 2px 2px rgb(150, 125, 92);
+  cursor: pointer;
+  border-radius: 5px;
 }

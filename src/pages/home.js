@@ -8,17 +8,22 @@ function homeContent() {
   h1.textContent = "Home";
   mainContent.appendChild(h1);
 
+  const buttons = document.createElement("div");
+  buttons.setAttribute("id", "buttons");
+
   const newTodoButton = document.createElement("button");
   newTodoButton.textContent = "New Todo";
   newTodoButton.setAttribute("command", "show-modal");
   newTodoButton.setAttribute("commandfor", "new-todo");
-  mainContent.appendChild(newTodoButton);
+  buttons.appendChild(newTodoButton);
 
   const newProjectButton = document.createElement("button");
   newProjectButton.textContent = "New Project";
   newProjectButton.setAttribute("command", "show-modal");
   newProjectButton.setAttribute("commandfor", "new-project");
-  mainContent.appendChild(newProjectButton);
+  buttons.appendChild(newProjectButton);
+
+  mainContent.appendChild(buttons);
 
   const projects = document.createElement("div");
   projects.setAttribute("id", "projects");
