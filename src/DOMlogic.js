@@ -44,6 +44,24 @@ function displayTodos(proj) {
         const todoContainer = document.createElement("div");
         todoContainer.classList.add("todo-container");
 
+        const checkDone = document.createElement("input");
+        checkDone.setAttribute("type", "checkbox");
+        checkDone.classList.add("check-done");
+        checkDone.addEventListener("click", () => {
+          td.changeDone();
+          console.log(td);
+          if (td.done === true) {
+            todoContainer.style.textDecoration = "line-through";
+            checkDone.checked = true;
+            console.log(td.done);
+          } else {
+            todoContainer.style.textDecoration = "none";
+            checkDone.checked = false;
+            console.log(td.done);
+          }
+        });
+        todoContainer.appendChild(checkDone);
+
         const todoTitle = document.createElement("div");
         todoTitle.textContent = td.title;
         todoContainer.appendChild(todoTitle);
@@ -53,6 +71,16 @@ function displayTodos(proj) {
         todoContainer.appendChild(todoDueDate);
 
         todosContainer.appendChild(todoContainer);
+
+        if (td.done === true) {
+          todoContainer.style.textDecoration = "line-through";
+          checkDone.checked = true;
+          console.log(td.done);
+        } else {
+          todoContainer.style.textDecoration = "none";
+          checkDone.checked = false;
+          console.log(td.done);
+        }
       });
     }
   });
@@ -99,12 +127,13 @@ function attachCreateProject() {
       document.getElementById("project-name").value = "";
 
       displayProjects();
-      dropdownListProjects();
+      addProjectsToDropDownList();
     });
   });
 }
 
 function dropdownListProjects() {
+  console.log("dropdown baby");
   const newTodoForm = document.getElementById("new-todo-form");
   //Create and append select list
   const selectList = document.createElement("select");
@@ -117,6 +146,17 @@ function dropdownListProjects() {
   newTodoForm.prepend(label);
 
   //Create and append the options
+  for (let i = 0; i < ListOfProjects.length; i++) {
+    const option = document.createElement("option");
+    option.value = ListOfProjects[i].id;
+    option.text = ListOfProjects[i].name;
+    selectList.appendChild(option);
+  }
+}
+
+function addProjectsToDropDownList() {
+  const selectList = document.getElementById("todo-project");
+  selectList.textContent = "";
   for (let i = 0; i < ListOfProjects.length; i++) {
     const option = document.createElement("option");
     option.value = ListOfProjects[i].id;
