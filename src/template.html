@@ -35,6 +35,7 @@
           </select>
           <button id="add-new-todo">Add Todo</button>
         </form>
+        <button commandfor="new-todo" command="close">Close</button>
       </dialog>
 
       <dialog id="new-project">
@@ -43,6 +44,21 @@
           <input type="text" name="project-name" id="project-name" />
           <button class="add-new-project">Add Project</button>
         </form>
+        <button commandfor="new-project" command="close">Close</button>
+      </dialog>
+
+      <dialog id="see-todo">
+        <div>Title</div>
+        <div id="see-todo-title"></div>
+        <div>Description</div>
+        <div id="see-todo-description"></div>
+        <div>Due Date</div>
+        <div id="see-todo-dueDate"></div>
+        <div>Priority</div>
+        <div id="see-todo-priority"></div>
+        <div>Project</div>
+        <div id="see-todo-project"></div>
+        <button commandfor="see-todo" command="close">Close</button>
       </dialog>
     </div>
   </body>

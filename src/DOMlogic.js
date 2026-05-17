@@ -62,8 +62,13 @@ function displayTodos(proj) {
         });
         todoContainer.appendChild(checkDone);
 
-        const todoTitle = document.createElement("div");
+        const todoTitle = document.createElement("button");
         todoTitle.textContent = td.title;
+        todoTitle.setAttribute("command", "show-modal");
+        todoTitle.setAttribute("commandfor", "see-todo");
+        todoTitle.addEventListener("click", () => {
+          populateSeeTodo(td);
+        });
         todoContainer.appendChild(todoTitle);
 
         const todoDueDate = document.createElement("div");
@@ -163,6 +168,14 @@ function addProjectsToDropDownList() {
     option.text = ListOfProjects[i].name;
     selectList.appendChild(option);
   }
+}
+
+function populateSeeTodo(td) {
+  document.getElementById("see-todo-title").textContent = td.title;
+  document.getElementById("see-todo-description").textContent = td.description;
+  document.getElementById("see-todo-dueDate").textContent = td.dueDate;
+  document.getElementById("see-todo-priority").textContent = td.priority;
+  document.getElementById("see-todo-project").textContent = td.project;
 }
 
 export {

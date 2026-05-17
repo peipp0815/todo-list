@@ -82,8 +82,18 @@ nav {
 
   min-height: 100vh;
   background-color: darkolivegreen;
-
+  width: 150px;
   box-shadow: 2px 2px 2px 2px rgb(150, 125, 92);
+  padding: 8px 0;
+}
+
+nav > button {
+  background-color: darkolivegreen;
+  color: white;
+  height: 2rem;
+  cursor: pointer;
+  border: 0;
+  border-bottom: 2px ridge white;
 }
 
 h1 {
@@ -112,8 +122,8 @@ h1 {
 }
 
 .project-container {
-  min-width: 250px;
-  min-height: 250px;
+  width: 250px;
+  height: 250px;
   background-color: rgb(255, 251, 247);
   border-radius: 10px;
   padding: 16px;
