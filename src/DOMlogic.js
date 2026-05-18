@@ -20,7 +20,7 @@ function attachCreateTodo() {
       projid,
     );
 
-    document.getElementById("todo-title").value = "";
+    document.getElementById("todo-title").value = "Todo";
     document.getElementById("todo-description").value = "";
     document.getElementById("todo-dueDate").value = "";
     document.getElementById("todo-priority").value = "";
@@ -71,8 +71,9 @@ function displayTodos(proj) {
         });
         todoContainer.appendChild(todoTitle);
 
-        const todoDueDate = document.createElement("div");
+        const todoDueDate = document.createElement("button");
         todoDueDate.textContent = td.dueDate;
+        todoDueDate.classList.add("todo-dueDate-in-project");
         todoContainer.appendChild(todoDueDate);
 
         todosContainer.appendChild(todoContainer);

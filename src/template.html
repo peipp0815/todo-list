@@ -19,9 +19,12 @@
       <div id="main-content"></div>
 
       <dialog id="new-todo">
+        <div class="close-btn">
+          <button commandfor="new-todo" command="close">X</button>
+        </div>
         <form action="" method="dialog" id="new-todo-form">
           <label for="todo-title">Title</label>
-          <input type="text" name="todo-title" id="todo-title" />
+          <input type="text" name="todo-title" id="todo-title" value="Todo" />
           <label for="todo-description">Description</label>
           <textarea name="todo-description" id="todo-description"> </textarea>
           <label for="todo-dueDate">Due date</label>
@@ -35,30 +38,35 @@
           </select>
           <button id="add-new-todo">Add Todo</button>
         </form>
-        <button commandfor="new-todo" command="close">Close</button>
       </dialog>
 
       <dialog id="new-project">
+        <div class="close-btn">
+          <button commandfor="new-project" command="close">X</button>
+        </div>
         <form action="" method="dialog">
           <label for="project-name">Name</label>
           <input type="text" name="project-name" id="project-name" />
           <button class="add-new-project">Add Project</button>
         </form>
-        <button commandfor="new-project" command="close">Close</button>
       </dialog>
 
       <dialog id="see-todo">
-        <div>Title</div>
-        <div id="see-todo-title"></div>
-        <div>Description</div>
-        <div id="see-todo-description"></div>
-        <div>Due Date</div>
-        <div id="see-todo-dueDate"></div>
-        <div>Priority</div>
-        <div id="see-todo-priority"></div>
-        <div>Project</div>
-        <div id="see-todo-project"></div>
-        <button commandfor="see-todo" command="close">Close</button>
+        <div class="close-btn">
+          <button commandfor="see-todo" command="close">X</button>
+        </div>
+        <div id="see-todo-container">
+          <div>Title</div>
+          <div id="see-todo-title"></div>
+          <div>Description</div>
+          <div id="see-todo-description"></div>
+          <div>Due Date</div>
+          <div id="see-todo-dueDate"></div>
+          <div>Priority</div>
+          <div id="see-todo-priority"></div>
+          <div>Project</div>
+          <div id="see-todo-project"></div>
+        </div>
       </dialog>
     </div>
   </body>
