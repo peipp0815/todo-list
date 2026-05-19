@@ -15,6 +15,7 @@ function homeContent() {
   newTodoButton.textContent = "New Todo";
   newTodoButton.setAttribute("command", "show-modal");
   newTodoButton.setAttribute("commandfor", "new-todo");
+  newTodoButton.setAttribute("id", "new-todo-btn");
   buttons.appendChild(newTodoButton);
 
   const newProjectButton = document.createElement("button");

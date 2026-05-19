@@ -8,29 +8,70 @@ import {
 
 function attachCreateTodo() {
   const btn = document.getElementById("add-new-todo");
-  btn.addEventListener("click", () => {
-    const projid = document.getElementById("todo-project").value;
-    console.log(projid);
-    createTodo(
-      document.getElementById("todo-title").value,
-      document.getElementById("todo-description").value,
-      document.getElementById("todo-dueDate").value,
-      document.getElementById("todo-priority").value,
-      "checklist",
-      projid,
-    );
+  btn.addEventListener("click", domCreateTodo);
+}
 
-    document.getElementById("todo-title").value = "Todo";
-    document.getElementById("todo-description").value = "";
-    document.getElementById("todo-dueDate").value = "";
-    document.getElementById("todo-priority").value = "";
-    document.getElementById("todo-project").value = defaultProject.id;
-    console.log(ListOfProjects);
-    const index = ListOfProjects.findIndex((item) => item.id === projid);
-    if (index > -1) {
-      displayTodos(ListOfProjects[index]);
+function domCreateTodo() {
+  const projid = document.getElementById("todo-project").value;
+  console.log(projid);
+  createTodo(
+    document.getElementById("todo-title").value,
+    document.getElementById("todo-description").value,
+    document.getElementById("todo-dueDate").value,
+    document.getElementById("todo-priority").value,
+    "checklist",
+    projid,
+  );
+
+  document.getElementById("todo-title").value = "";
+  document.getElementById("todo-description").value = "";
+  document.getElementById("todo-dueDate").value = "";
+  document.getElementById("todo-priority").value = "";
+  document.getElementById("todo-project").value = defaultProject.id;
+
+  console.log(ListOfProjects);
+  const index = ListOfProjects.findIndex((item) => item.id === projid);
+  if (index > -1) {
+    displayTodos(ListOfProjects[index]);
+  }
+}
+
+function populateEditTodo(td) {
+  document.getElementById("todo-title").value = td.title;
+  document.getElementById("todo-description").value = td.description;
+  document.getElementById("todo-dueDate").value = td.dueDate;
+  document.getElementById("todo-priority").value = td.priority;
+  document.getElementById("todo-project").value = td.projid;
+}
+
+function editTodo() {
+  const btn = document.getElementById("add-new-todo");
+  const projid = btn.getAttribute("data-projid");
+  const tdid = btn.getAttribute("data-tdid");
+  const projIndex = ListOfProjects.findIndex((item) => item.id === projid);
+  console.log("here");
+  if (projIndex > -1) {
+    console.log("fer");
+    const proj = ListOfProjects[projIndex];
+    const tdIndex = proj.todoList.findIndex((item) => item.id === tdid);
+    if (tdIndex > -1) {
+      const td = proj.todoList[tdIndex];
+      console.log(td);
+      td.title = document.getElementById("todo-title").value;
+      td.description = document.getElementById("todo-description").value;
+      td.dueDate = document.getElementById("todo-dueDate").value;
+      td.priority = document.getElementById("todo-priority").value;
+      td.projid = document.getElementById("todo-project").value;
+
+      displayTodos(proj);
     }
-  });
+  }
+
+  document.getElementById("todo-title").value = "";
+  document.getElementById("todo-description").value = "";
+  document.getElementById("todo-dueDate").value = "";
+  document.getElementById("todo-priority").value = "";
+  document.getElementById("todo-project").value = defaultProject.id;
 }
 
 function displayTodos(proj) {
@@ -65,9 +106,15 @@ function displayTodos(proj) {
         const todoTitle = document.createElement("button");
         todoTitle.textContent = td.title;
         todoTitle.setAttribute("command", "show-modal");
-        todoTitle.setAttribute("commandfor", "see-todo");
+        todoTitle.setAttribute("commandfor", "new-todo");
         todoTitle.addEventListener("click", () => {
-          populateSeeTodo(td);
+          populateEditTodo(td);
+          const btn = document.getElementById("add-new-todo");
+          btn.textContent = "Save changes";
+          btn.removeEventListener("click", domCreateTodo);
+          btn.addEventListener("click", editTodo);
+          btn.setAttribute("data-tdid", td.id);
+          btn.setAttribute("data-projid", td.projid);
         });
         todoContainer.appendChild(todoTitle);
 
@@ -179,10 +226,20 @@ function populateSeeTodo(td) {
   document.getElementById("see-todo-project").textContent = td.project;
 }
 
+function switchEditToNewTodo() {
+  const btn = document.getElementById("new-todo-btn");
+  btn.addEventListener("click", () => {
+    const btn2 = document.getElementById("add-new-todo");
+    btn2.removeEventListener("click", editTodo);
+    btn2.addEventListener("click", domCreateTodo);
+  });
+}
+
 export {
   attachCreateTodo,
   displayProjects,
   displayTodos,
   attachCreateProject,
   dropdownListProjects,
+  switchEditToNewTodo,
 };

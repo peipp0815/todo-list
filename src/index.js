@@ -5,9 +5,11 @@ import {
   attachCreateTodo,
   displayProjects,
   dropdownListProjects,
+  switchEditToNewTodo,
 } from "./DOMlogic.js";
 
 homeContent();
 dropdownListProjects();
 attachCreateTodo();
 attachCreateProject();
+switchEditToNewTodo();
