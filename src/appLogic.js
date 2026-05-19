@@ -60,12 +60,12 @@ function createTodo(title, description, dueDate, priority, checklist, projid) {
 
 function reassignProject(td, proj) {
   deleteTodo(td);
-  td.proj = proj.id;
+  td.projid = proj.id;
   proj.todoList.push(td);
 }
 
 function deleteTodo(td) {
-  const index = ListOfProjects.findIndex((item) => item.id === td.proj);
+  const index = ListOfProjects.findIndex((item) => item.id === td.projid);
   if (index > -1) {
     ListOfProjects[index].removeTodo(td.id);
   }

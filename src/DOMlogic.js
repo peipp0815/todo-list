@@ -4,6 +4,7 @@ import {
   defaultProject,
   createProject,
   deleteProject,
+  reassignProject,
 } from "./appLogic.js";
 
 function attachCreateTodo() {
@@ -61,7 +62,20 @@ function editTodo() {
       td.description = document.getElementById("todo-description").value;
       td.dueDate = document.getElementById("todo-dueDate").value;
       td.priority = document.getElementById("todo-priority").value;
-      td.projid = document.getElementById("todo-project").value;
+      if (projid !== document.getElementById("todo-project").value) {
+        const newProjid = document.getElementById("todo-project").value;
+        const newProjIndex = ListOfProjects.findIndex(
+          (item) => item.id === newProjid,
+        );
+        if (newProjIndex > -1) {
+          const newProj = ListOfProjects[newProjIndex];
+          reassignProject(td, newProj);
+          console.log(projid);
+          console.log(newProjid);
+          displayTodos(newProj);
+          console.log(ListOfProjects);
+        }
+      }
 
       displayTodos(proj);
     }
@@ -216,14 +230,6 @@ function addProjectsToDropDownList() {
     option.text = ListOfProjects[i].name;
     selectList.appendChild(option);
   }
-}
-
-function populateSeeTodo(td) {
-  document.getElementById("see-todo-title").textContent = td.title;
-  document.getElementById("see-todo-description").textContent = td.description;
-  document.getElementById("see-todo-dueDate").textContent = td.dueDate;
-  document.getElementById("see-todo-priority").textContent = td.priority;
-  document.getElementById("see-todo-project").textContent = td.project;
 }
 
 function switchEditToNewTodo() {
