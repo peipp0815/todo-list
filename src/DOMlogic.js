@@ -166,6 +166,7 @@ function displayProjects() {
       deleteprojectBtn.addEventListener("click", () => {
         deleteProject(proj, false);
         displayProjects();
+        addProjectsToDropDownList();
       });
     }
 
