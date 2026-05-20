@@ -9,7 +9,6 @@ import {
 
 function domCreateTodo() {
   const projid = document.getElementById("todo-project").value;
-  console.log(projid);
   createTodo(
     document.getElementById("todo-title").value,
     document.getElementById("todo-description").value,
@@ -25,7 +24,6 @@ function domCreateTodo() {
   document.getElementById("todo-priority").value = "";
   document.getElementById("todo-project").value = defaultProject.id;
 
-  console.log(ListOfProjects);
   const index = ListOfProjects.findIndex((item) => item.id === projid);
   if (index > -1) {
     displayTodos(ListOfProjects[index]);
@@ -45,14 +43,13 @@ function editTodo() {
   const projid = btn.getAttribute("data-projid");
   const tdid = btn.getAttribute("data-tdid");
   const projIndex = ListOfProjects.findIndex((item) => item.id === projid);
-  console.log("here");
+
   if (projIndex > -1) {
-    console.log("fer");
     const proj = ListOfProjects[projIndex];
     const tdIndex = proj.todoList.findIndex((item) => item.id === tdid);
     if (tdIndex > -1) {
       const td = proj.todoList[tdIndex];
-      console.log(td);
+
       td.title = document.getElementById("todo-title").value;
       td.description = document.getElementById("todo-description").value;
       td.dueDate = document.getElementById("todo-dueDate").value;
@@ -65,10 +62,7 @@ function editTodo() {
         if (newProjIndex > -1) {
           const newProj = ListOfProjects[newProjIndex];
           reassignProject(td, newProj);
-          console.log(projid);
-          console.log(newProjid);
           displayTodos(newProj);
-          console.log(ListOfProjects);
         }
       }
 
@@ -99,15 +93,13 @@ function displayTodos(proj) {
         checkDone.classList.add("check-done");
         checkDone.addEventListener("click", () => {
           td.changeDone();
-          console.log(td);
+
           if (td.done === true) {
             todoContainer.style.textDecoration = "line-through";
             checkDone.checked = true;
-            console.log(td.done);
           } else {
             todoContainer.style.textDecoration = "none";
             checkDone.checked = false;
-            console.log(td.done);
           }
         });
         todoContainer.appendChild(checkDone);
@@ -126,7 +118,7 @@ function displayTodos(proj) {
           btn.setAttribute("data-projid", td.projid);
         });
         todoContainer.appendChild(todoTitle);
-        //change left border color based on priority
+        //assign data-priority to change left border color based on priority
         if (td.priority === "p1") {
           todoContainer.dataset.priority = "p1";
         } else if (td.priority === "p2") {
@@ -147,11 +139,9 @@ function displayTodos(proj) {
         if (td.done === true) {
           todoContainer.style.textDecoration = "line-through";
           checkDone.checked = true;
-          console.log(td.done);
         } else {
           todoContainer.style.textDecoration = "none";
           checkDone.checked = false;
-          console.log(td.done);
         }
       });
     }
@@ -205,7 +195,6 @@ function attachCreateProject() {
 }
 
 function dropdownListProjects() {
-  console.log("dropdown baby");
   const newTodoForm = document.getElementById("new-todo-form");
   //Create and append select list
   const selectList = document.createElement("select");
@@ -241,6 +230,7 @@ function switchEditToNewTodo() {
   const btn = document.getElementById("new-todo-btn");
   btn.addEventListener("click", () => {
     const btn2 = document.getElementById("add-new-todo");
+    btn2.textContent = "Add Todo";
     btn2.removeEventListener("click", editTodo);
     btn2.addEventListener("click", domCreateTodo);
   });

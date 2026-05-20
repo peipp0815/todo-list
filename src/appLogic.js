@@ -49,12 +49,11 @@ function createTodo(title, description, dueDate, priority, checklist, projid) {
     projid,
   );
   const index = ListOfProjects.findIndex((item) => item.id === projid);
-  console.log(index);
-  console.log(projid);
+
   if (index > -1) {
     ListOfProjects[index].todoList.push(newTodo);
   }
-  console.log("yohoho");
+
   return newTodo;
 }
 

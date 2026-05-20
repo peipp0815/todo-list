@@ -172,6 +172,7 @@ h1 {
 .todo-container button {
   background-color: transparent;
   border: 0;
+  min-width: 2rem;
 }
 
 .todo-dueDate-in-project {
@@ -192,8 +193,7 @@ h1 {
 }
 
 #new-todo,
-#new-project,
-#see-todo {
+#new-project {
   padding: 0;
 }
 
@@ -231,13 +231,5 @@ h1 {
 }
 
 #new-project > form {
-  margin: 16px;
-}
-
-#see-todo-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px;
-  min-width: 250px;
   margin: 16px;
 }
