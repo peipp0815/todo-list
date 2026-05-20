@@ -93,7 +93,7 @@ function displayTodos(proj) {
       proj.todoList.forEach((td) => {
         const todoContainer = document.createElement("div");
         todoContainer.classList.add("todo-container");
-
+        //create checkmark
         const checkDone = document.createElement("input");
         checkDone.setAttribute("type", "checkbox");
         checkDone.classList.add("check-done");
@@ -111,7 +111,7 @@ function displayTodos(proj) {
           }
         });
         todoContainer.appendChild(checkDone);
-
+        //create todo title as a button to edit the todo
         const todoTitle = document.createElement("button");
         todoTitle.textContent = td.title;
         todoTitle.setAttribute("command", "show-modal");
@@ -126,14 +126,24 @@ function displayTodos(proj) {
           btn.setAttribute("data-projid", td.projid);
         });
         todoContainer.appendChild(todoTitle);
-
+        //change left border color based on priority
+        if (td.priority === "p1") {
+          todoContainer.dataset.priority = "p1";
+        } else if (td.priority === "p2") {
+          todoContainer.dataset.priority = "p2";
+        } else if (td.priority === "p3") {
+          todoContainer.dataset.priority = "p3";
+        } else {
+          todoContainer.dataset.priority = "";
+        }
+        //create todo due date as a button just for aesthetics
         const todoDueDate = document.createElement("button");
         todoDueDate.textContent = td.dueDate;
         todoDueDate.classList.add("todo-dueDate-in-project");
         todoContainer.appendChild(todoDueDate);
 
         todosContainer.appendChild(todoContainer);
-
+        //check if todo is done
         if (td.done === true) {
           todoContainer.style.textDecoration = "line-through";
           checkDone.checked = true;

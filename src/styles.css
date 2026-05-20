@@ -150,6 +150,23 @@ h1 {
   row-gap: 4px;
 
   min-height: 1.5rem;
+  padding-left: 4px;
+}
+
+[data-priority="p1"] {
+  border-left: thick solid red;
+}
+
+[data-priority="p2"] {
+  border-left: thick solid gold;
+}
+
+[data-priority="p3"] {
+  border-left: thick solid green;
+}
+
+[data-priority=""] {
+  border-left: thick solid transparent;
 }
 
 .todo-container button {
