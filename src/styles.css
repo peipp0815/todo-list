@@ -169,7 +169,8 @@ h1 {
   border-left: thick solid transparent;
 }
 
-.todo-container button {
+.todo-container button,
+.delete-project {
   background-color: transparent;
   border: 0;
   min-width: 2rem;
@@ -177,6 +178,11 @@ h1 {
 
 .todo-dueDate-in-project {
   justify-self: end;
+}
+
+button.delete-todo:hover,
+.delete-project:hover {
+  color: brown;
 }
 
 #buttons {
