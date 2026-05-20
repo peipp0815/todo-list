@@ -125,7 +125,7 @@ h1 {
 }
 
 .project-container {
-  width: 300px;
+  width: 400px;
   height: 300px;
   background-color: rgb(255, 251, 247);
   border-radius: 10px;
@@ -146,7 +146,7 @@ h1 {
 
 .todo-container {
   display: grid;
-  grid-template-columns: 1rem 1fr 1fr;
+  grid-template-columns: 1rem 1fr 100px;
   row-gap: 4px;
 
   min-height: 1.5rem;

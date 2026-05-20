@@ -2,7 +2,6 @@ import "./styles.css";
 import homeContent from "./pages/home.js";
 import {
   attachCreateProject,
-  attachCreateTodo,
   displayProjects,
   dropdownListProjects,
   switchEditToNewTodo,
@@ -10,6 +9,6 @@ import {
 
 homeContent();
 dropdownListProjects();
-attachCreateTodo();
+
 attachCreateProject();
 switchEditToNewTodo();

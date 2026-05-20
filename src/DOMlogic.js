@@ -7,11 +7,6 @@ import {
   reassignProject,
 } from "./appLogic.js";
 
-function attachCreateTodo() {
-  const btn = document.getElementById("add-new-todo");
-  btn.addEventListener("click", domCreateTodo);
-}
-
 function domCreateTodo() {
   const projid = document.getElementById("todo-project").value;
   console.log(projid);
@@ -242,7 +237,6 @@ function switchEditToNewTodo() {
 }
 
 export {
-  attachCreateTodo,
   displayProjects,
   displayTodos,
   attachCreateProject,
