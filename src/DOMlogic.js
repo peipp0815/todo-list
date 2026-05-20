@@ -5,6 +5,7 @@ import {
   createProject,
   deleteProject,
   reassignProject,
+  deleteTodo,
 } from "./appLogic.js";
 
 function domCreateTodo() {
@@ -143,6 +144,15 @@ function displayTodos(proj) {
           todoContainer.style.textDecoration = "none";
           checkDone.checked = false;
         }
+        //add a delete button
+        const deleteTodoBtn = document.createElement("button");
+        deleteTodoBtn.classList.add("delete-todo");
+        deleteTodoBtn.textContent = "X";
+        todoContainer.appendChild(deleteTodoBtn);
+        deleteTodoBtn.addEventListener("click", () => {
+          deleteTodo(td);
+          displayTodos(proj);
+        });
       });
     }
   });
