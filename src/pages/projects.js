@@ -1,4 +1,5 @@
 import { ListOfProjects } from "../appLogic.js";
+import { displayTodos } from "../DOMlogic.js";
 
 function projectContent(projid) {
   const projIndex = ListOfProjects.findIndex((item) => item.id === projid);
@@ -22,6 +23,8 @@ function projectContent(projid) {
     newTodoButton.setAttribute("commandfor", "new-todo");
     newTodoButton.setAttribute("id", "new-todo-btn");
     buttons.appendChild(newTodoButton);
+
+    mainContent.appendChild(buttons);
 
     const todosContainer = document.createElement("div");
     todosContainer.classList.add("todos-container");

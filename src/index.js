@@ -5,11 +5,16 @@ import {
   displayProjects,
   dropdownListProjects,
   switchEditToNewTodo,
+  addProjectsToNavBar,
 } from "./DOMlogic.js";
 import projectContent from "./pages/projects.js";
+import { makeNavBar } from "./navLogic.js";
 
 homeContent();
 dropdownListProjects();
 
 attachCreateProject();
 switchEditToNewTodo();
+addProjectsToNavBar();
+
+makeNavBar();

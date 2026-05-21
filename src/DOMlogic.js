@@ -7,6 +7,7 @@ import {
   reassignProject,
   deleteTodo,
 } from "./appLogic.js";
+import { makeNavBar } from "./navLogic.js";
 
 function domCreateTodo() {
   const projid = document.getElementById("todo-project").value;
@@ -80,7 +81,7 @@ function editTodo() {
 
 function displayTodos(proj) {
   const todosContainers = document.querySelectorAll(
-    "[data-projectid], .todos-container",
+    "[data-projectid].todos-container",
   );
 
   todosContainers.forEach((element) => {
@@ -162,35 +163,36 @@ function displayTodos(proj) {
 
 function displayProjects() {
   const projects = document.getElementById("projects");
-  projects.textContent = "";
-  ListOfProjects.forEach((proj) => {
-    const projectContainer = document.createElement("div");
-    projectContainer.classList.add("project-container");
-    const projectName = document.createElement("h3");
-    projectName.textContent = proj.name;
-    projectContainer.appendChild(projectName);
+  if (projects !== null) {
+    projects.textContent = "";
+    ListOfProjects.forEach((proj) => {
+      const projectContainer = document.createElement("div");
+      projectContainer.classList.add("project-container");
+      const projectName = document.createElement("h3");
+      projectName.textContent = proj.name;
+      projectContainer.appendChild(projectName);
 
-    if (proj.deletable === true) {
-      const deleteprojectBtn = document.createElement("button");
-      deleteprojectBtn.classList.add("delete-project");
-      deleteprojectBtn.textContent = "X";
-      projectContainer.appendChild(deleteprojectBtn);
-      deleteprojectBtn.addEventListener("click", () => {
-        deleteProject(proj, false);
-        displayProjects();
-        addProjectsToDropDownList();
-      });
-    }
+      if (proj.deletable === true) {
+        const deleteprojectBtn = document.createElement("button");
+        deleteprojectBtn.classList.add("delete-project");
+        deleteprojectBtn.textContent = "X";
+        projectContainer.appendChild(deleteprojectBtn);
+        deleteprojectBtn.addEventListener("click", () => {
+          deleteProject(proj, false);
+          updateProjects();
+        });
+      }
 
-    const todosContainer = document.createElement("div");
-    todosContainer.classList.add("todos-container");
-    todosContainer.setAttribute("data-projectid", proj.id);
-    projectContainer.appendChild(todosContainer);
+      const todosContainer = document.createElement("div");
+      todosContainer.classList.add("todos-container");
+      todosContainer.setAttribute("data-projectid", proj.id);
+      projectContainer.appendChild(todosContainer);
 
-    projects.appendChild(projectContainer);
+      projects.appendChild(projectContainer);
 
-    displayTodos(proj);
-  });
+      displayTodos(proj);
+    });
+  }
 }
 
 function attachCreateProject() {
@@ -200,9 +202,8 @@ function attachCreateProject() {
       createProject(document.getElementById("project-name").value);
 
       document.getElementById("project-name").value = "";
-
-      displayProjects();
-      addProjectsToDropDownList();
+      console.log("herre");
+      updateProjects();
     });
   });
 }
@@ -237,7 +238,6 @@ function addProjectsToDropDownList() {
     option.text = ListOfProjects[i].name;
     selectList.appendChild(option);
   }
-  addProjectsToNavBar();
 }
 
 function addProjectsToNavBar() {
@@ -246,7 +246,9 @@ function addProjectsToNavBar() {
   for (let i = 0; i < ListOfProjects.length; i++) {
     const button = document.createElement("button");
     button.dataset.projectid = ListOfProjects[i].id;
+    console.log(ListOfProjects[i].name);
     button.textContent = ListOfProjects[i].name;
+    console.log(button.textContent);
     navBarProjects.appendChild(button);
   }
 }
@@ -261,10 +263,19 @@ function switchEditToNewTodo() {
   });
 }
 
+function updateProjects() {
+  addProjectsToNavBar();
+  addProjectsToDropDownList();
+  displayProjects();
+  makeNavBar();
+}
+
 export {
   displayProjects,
   displayTodos,
   attachCreateProject,
   dropdownListProjects,
   switchEditToNewTodo,
+  addProjectsToNavBar,
+  updateProjects,
 };
