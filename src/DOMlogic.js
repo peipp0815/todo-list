@@ -79,7 +79,9 @@ function editTodo() {
 }
 
 function displayTodos(proj) {
-  const todosContainers = document.querySelectorAll("[data-projectid]");
+  const todosContainers = document.querySelectorAll(
+    "[data-projectid], .todos-container",
+  );
 
   todosContainers.forEach((element) => {
     if (element.getAttribute("data-projectid") === proj.id) {
@@ -234,6 +236,18 @@ function addProjectsToDropDownList() {
     option.value = ListOfProjects[i].id;
     option.text = ListOfProjects[i].name;
     selectList.appendChild(option);
+  }
+  addProjectsToNavBar();
+}
+
+function addProjectsToNavBar() {
+  const navBarProjects = document.getElementById("nav-projects");
+  navBarProjects.textContent = "";
+  for (let i = 0; i < ListOfProjects.length; i++) {
+    const button = document.createElement("button");
+    button.dataset.projectid = ListOfProjects[i].id;
+    button.textContent = ListOfProjects[i].name;
+    navBarProjects.appendChild(button);
   }
 }
 

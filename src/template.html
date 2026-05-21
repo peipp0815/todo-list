@@ -8,13 +8,21 @@
   <body>
     <div id="container">
       <nav>
-        <button>Home</button>
-        <button>Calendar</button>
-        <button>Inbox</button>
-        <button>Projects</button>
-        <button command="show-modal" commandfor="new-project">
+        <button id="nav-home">Home</button>
+        <button id="nav-calendar">Calendar</button>
+        <button disabled></button>
+        <button disabled></button>
+        <button disabled>Projects</button>
+        <button
+          command="show-modal"
+          commandfor="new-project"
+          id="nav-new-project"
+        >
           New Project
         </button>
+        <div id="nav-projects">
+          <button id="nav-inbox">Inbox</button>
+        </div>
       </nav>
       <div id="main-content"></div>
 

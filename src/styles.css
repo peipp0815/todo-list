@@ -83,20 +83,50 @@ button {
 nav {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 
   min-height: 100vh;
   background-color: darkolivegreen;
   width: 150px;
   box-shadow: 2px 2px 2px 2px rgb(150, 125, 92);
   padding: 8px 0;
+
+  flex-shrink: 0;
 }
 
-nav > button {
+nav button {
   background-color: darkolivegreen;
   color: white;
   height: 2rem;
   border: 0;
-  border-bottom: 2px ridge white;
+  width: 100%;
+}
+
+nav > button {
+  font-size: 1.25rem;
+}
+
+nav button:hover {
+  background-color: olivedrab;
+}
+
+nav button:disabled:hover {
+  color: white;
+  background-color: darkolivegreen;
+}
+
+#nav-new-project {
+  border: 2px solid white;
+  border-radius: 10px;
+  font-size: 1rem;
+  width: 75%;
+  align-self: center;
+  box-shadow: 2px 2px white;
+}
+
+#nav-new-project:hover {
+  box-shadow: 0px 0px;
+  background-color: darkolivegreen;
 }
 
 h1 {
