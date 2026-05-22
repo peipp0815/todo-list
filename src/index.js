@@ -6,6 +6,7 @@ import {
   dropdownListProjects,
   switchEditToNewTodo,
   addProjectsToNavBar,
+  clearDialogsOnClose,
 } from "./DOMlogic.js";
 import projectContent from "./pages/projects.js";
 import { makeNavBar } from "./navLogic.js";
@@ -18,3 +19,4 @@ switchEditToNewTodo();
 addProjectsToNavBar();
 
 makeNavBar();
+clearDialogsOnClose();

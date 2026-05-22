@@ -215,6 +215,10 @@ button.delete-todo:hover,
   color: brown;
 }
 
+.todo-container button.delete-todo {
+  text-decoration: none;
+}
+
 #buttons {
   display: flex;
   gap: 8px;

@@ -270,6 +270,15 @@ function updateProjects() {
   makeNavBar();
 }
 
+function clearDialogsOnClose() {
+  document.getElementById("new-todo").addEventListener("close", (event) => {
+    document.getElementById("new-todo-form").reset();
+  });
+  document.getElementById("new-project").addEventListener("close", (event) => {
+    document.getElementById("new-project-form").reset();
+  });
+}
+
 export {
   displayProjects,
   displayTodos,
@@ -278,4 +287,5 @@ export {
   switchEditToNewTodo,
   addProjectsToNavBar,
   updateProjects,
+  clearDialogsOnClose,
 };
