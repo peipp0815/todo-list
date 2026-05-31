@@ -22,6 +22,7 @@ function calendarContent() {
   mainContent.appendChild(month);
 
   const monthHeader = document.createElement("div");
+  monthHeader.id = "month-header";
   month.appendChild(monthHeader);
 
   const currentDate = document.createElement("span");
@@ -31,6 +32,16 @@ function calendarContent() {
   const nav = document.createElement("span");
   nav.id = "calendar-navigation";
   monthHeader.appendChild(nav);
+
+  const left = document.createElement("span");
+  left.classList.add("iconify");
+  left.dataset.icon = "mdi-arrow-left-drop-circle";
+  nav.appendChild(left);
+
+  const right = document.createElement("span");
+  right.classList.add("iconify");
+  right.dataset.icon = "mdi-arrow-right-drop-circle";
+  nav.appendChild(right);
 
   const monthBody = document.createElement("div");
   month.appendChild(monthBody);
