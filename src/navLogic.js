@@ -1,4 +1,6 @@
+import { displayCalendarHeader, displayCalendar } from "./calendarLogic.js";
 import { updateProjects } from "./DOMlogic.js";
+import calendarContent from "./pages/calendar.js";
 import homeContent from "./pages/home.js";
 import projectContent from "./pages/projects.js";
 
@@ -15,6 +17,12 @@ function makeNavBar() {
   homeBtn.addEventListener("click", () => {
     homeContent();
     updateProjects();
+  });
+
+  document.getElementById("nav-calendar").addEventListener("click", () => {
+    calendarContent();
+    displayCalendarHeader();
+    displayCalendar();
   });
 }
 
