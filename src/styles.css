@@ -275,12 +275,11 @@ button.delete-todo:hover,
 }
 
 #month {
-  width: 400px;
-  height: 300px;
+  width: fit-content;
   background-color: rgb(255, 251, 247);
   border-radius: 10px;
   padding: 16px;
-  margin: 16px 0px;
+  margin: 16px 0;
   border: 5px ridge brown;
   box-shadow: 2px 2px 2px rgb(150, 125, 92);
 }
@@ -315,4 +314,14 @@ button.delete-todo:hover,
 #calendar-dates {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+}
+
+#calendar-weekdays div,
+#calendar-dates div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  width: 3em;
+  border-radius: 10px;
 }

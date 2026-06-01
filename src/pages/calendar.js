@@ -36,11 +36,13 @@ function calendarContent() {
   const left = document.createElement("span");
   left.classList.add("iconify");
   left.dataset.icon = "mdi-arrow-left-drop-circle";
+  left.id = "calendar-previous";
   nav.appendChild(left);
 
   const right = document.createElement("span");
   right.classList.add("iconify");
   right.dataset.icon = "mdi-arrow-right-drop-circle";
+  right.id = "calendar-next";
   nav.appendChild(right);
 
   const monthBody = document.createElement("div");

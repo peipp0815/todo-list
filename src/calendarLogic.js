@@ -4,6 +4,8 @@ import {
   getDaysInMonth,
   lastDayOfMonth,
   startOfMonth,
+  subMonths,
+  addMonths,
 } from "date-fns";
 
 const months = [
@@ -23,12 +25,10 @@ const months = [
 
 let date = new Date();
 
-function displayCalendarHeader() {
+function displayCalendar() {
   const currentMonthName = document.getElementById("current-date");
   currentMonthName.textContent = `${months[getMonth(date)]} ${getYear(date)}`;
-}
 
-function displayCalendar() {
   const firstDay = startOfMonth(date);
   const firstDayIndex = firstDay.getDay() ? firstDay.getDay() : 7;
   const lastDay = lastDayOfMonth(date);
@@ -58,4 +58,34 @@ function displayCalendar() {
   }
 }
 
-export { displayCalendarHeader, displayCalendar };
+function CalendarNav() {
+  const days = document.getElementById("calendar-dates");
+  const previous = document.getElementById("calendar-previous");
+  const next = document.getElementById("calendar-next");
+
+  document.addEventListener(
+    "click",
+    function (event) {
+      if (!event.target.closest("#calendar-previous")) return;
+      console.log(event.target);
+      days.textContent = "";
+      date = subMonths(date, 1);
+      displayCalendar();
+    },
+    false,
+  );
+
+  document.addEventListener(
+    "click",
+    function (event) {
+      if (!event.target.closest("#calendar-next")) return;
+      console.log(event.target);
+      days.textContent = "";
+      date = addMonths(date, 1);
+      displayCalendar();
+    },
+    false,
+  );
+}
+
+export { displayCalendar, CalendarNav };
