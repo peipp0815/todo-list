@@ -121,18 +121,19 @@ nav button:disabled:hover {
   font-size: 1rem;
   width: 75%;
   align-self: center;
-  box-shadow: 2px 2px white;
 }
 
 #nav-new-project:hover {
-  box-shadow: 0px 0px;
+  border: 2px solid rgb(184, 184, 184);
+  color: rgb(184, 184, 184);
   background-color: darkolivegreen;
 }
 
 h1 {
   align-self: center;
   margin-bottom: 24px;
-  text-shadow: 2px 2px 2px rgb(150, 125, 92);
+  -webkit-text-stroke: 0.5px white;
+  /*text-shadow: 2px 2px 2px rgb(150, 125, 92);*/
 }
 
 #main-content {

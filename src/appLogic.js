@@ -30,6 +30,7 @@ class todo {
 }
 
 const ListOfProjects = [];
+const ListOfTodos = [];
 
 function createProject(name, deletable = true) {
   const newProject = new project(name, deletable);
@@ -48,6 +49,7 @@ function createTodo(title, description, dueDate, priority, checklist, projid) {
     checklist,
     projid,
   );
+  ListOfTodos.push(newTodo);
   const index = ListOfProjects.findIndex((item) => item.id === projid);
 
   if (index > -1) {
@@ -68,6 +70,11 @@ function deleteTodo(td) {
   if (index > -1) {
     ListOfProjects[index].removeTodo(td.id);
   }
+
+  const index = ListOfTodos.indexOf(td);
+  if (index > -1) {
+    ListOfTodos.splice(index, 1);
+  }
 }
 
 function deleteProject(proj, preserveTodos) {
@@ -75,6 +82,13 @@ function deleteProject(proj, preserveTodos) {
     if (preserveTodos === true) {
       for (const td of proj.todoList) {
         reassignProject(td, defaultProject);
+      }
+    } else {
+      for (const td of proj.todoList) {
+        const index = ListOfTodos.indexOf(td);
+        if (index > -1) {
+          ListOfTodos.splice(index, 1);
+        }
       }
     }
     const index = ListOfProjects.findIndex((item) => item.id === proj.id);
