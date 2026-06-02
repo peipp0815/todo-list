@@ -51,9 +51,10 @@ function createTodo(title, description, dueDate, priority, checklist, projid) {
   );
   ListOfTodos.push(newTodo);
   const index = ListOfProjects.findIndex((item) => item.id === projid);
-
+  console.log(ListOfProjects);
   if (index > -1) {
     ListOfProjects[index].todoList.push(newTodo);
+    console.log(ListOfProjects);
   }
 
   return newTodo;
@@ -71,9 +72,9 @@ function deleteTodo(td) {
     ListOfProjects[index].removeTodo(td.id);
   }
 
-  const index = ListOfTodos.indexOf(td);
-  if (index > -1) {
-    ListOfTodos.splice(index, 1);
+  const index2 = ListOfTodos.indexOf(td);
+  if (index2 > -1) {
+    ListOfTodos.splice(index2, 1);
   }
 }
 
@@ -91,9 +92,9 @@ function deleteProject(proj, preserveTodos) {
         }
       }
     }
-    const index = ListOfProjects.findIndex((item) => item.id === proj.id);
-    if (index > -1) {
-      ListOfProjects.splice(index, 1);
+    const index2 = ListOfProjects.findIndex((item) => item.id === proj.id);
+    if (index2 > -1) {
+      ListOfProjects.splice(index2, 1);
     }
   }
 }
@@ -106,4 +107,5 @@ export {
   reassignProject,
   deleteTodo,
   deleteProject,
+  ListOfTodos,
 };

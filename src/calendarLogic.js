@@ -7,6 +7,7 @@ import {
   subMonths,
   addMonths,
 } from "date-fns";
+import { ListOfTodos } from "./appLogic.js";
 
 const months = [
   "January",
@@ -87,5 +88,7 @@ function CalendarNav() {
     false,
   );
 }
+
+function displayTodosInCalendar() {}
 
 export { displayCalendar, CalendarNav };

@@ -3,6 +3,7 @@ import { updateProjects } from "./DOMlogic.js";
 import calendarContent from "./pages/calendar.js";
 import homeContent from "./pages/home.js";
 import projectContent from "./pages/projects.js";
+import { switchEditToNewTodo } from "./DOMlogic.js";
 
 function makeNavBar() {
   const projBtns = document.getElementById("nav-projects").childNodes;
@@ -23,6 +24,8 @@ function makeNavBar() {
     calendarContent();
     displayCalendar();
     CalendarNav();
+    updateProjects();
+    switchEditToNewTodo();
   });
 }
 

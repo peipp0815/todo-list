@@ -132,7 +132,8 @@ nav button:disabled:hover {
 h1 {
   align-self: center;
   margin-bottom: 24px;
-  -webkit-text-stroke: 0.5px white;
+  /* -webkit-text-stroke: 0.5px white; */
+  color: darkolivegreen;
   /*text-shadow: 2px 2px 2px rgb(150, 125, 92);*/
 }
 
