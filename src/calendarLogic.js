@@ -6,6 +6,7 @@ import {
   startOfMonth,
   subMonths,
   addMonths,
+  formatISO,
 } from "date-fns";
 import { ListOfTodos } from "./appLogic.js";
 
@@ -45,7 +46,7 @@ function displayCalendar() {
   for (let i = 1; i <= numberOfDays; i++) {
     let div = document.createElement("div");
     let currentDate = new Date(getYear(date), getMonth(date), i);
-    div.dataset.date = currentDate.toDateString();
+    div.dataset.date = formatISO(currentDate, { representation: "date" });
     div.textContent += i;
     days.appendChild(div);
 
@@ -56,39 +57,43 @@ function displayCalendar() {
     ) {
       div.classList.add("current-date");
     }
+
+    ListOfTodos.forEach((todo) => {
+      if (div.dataset.date === todo.dueDate) {
+        div.classList.add("todo-due-on-this-day");
+      }
+    });
   }
 }
 
 function CalendarNav() {
-  const days = document.getElementById("calendar-dates");
-  const previous = document.getElementById("calendar-previous");
-  const next = document.getElementById("calendar-next");
+  const previous = document.querySelector("#calendar-previous");
+  const next = document.querySelector("#calendar-next");
 
-  document.addEventListener(
-    "click",
-    function (event) {
-      if (!event.target.closest("#calendar-previous")) return;
-      console.log(event.target);
-      days.textContent = "";
-      date = subMonths(date, 1);
-      displayCalendar();
-    },
-    false,
-  );
-
-  document.addEventListener(
-    "click",
-    function (event) {
-      if (!event.target.closest("#calendar-next")) return;
-      console.log(event.target);
-      days.textContent = "";
-      date = addMonths(date, 1);
-      displayCalendar();
-    },
-    false,
-  );
+  previous.addEventListener("click", goBackOneMonth);
+  next.addEventListener("click", goForthOneMonth);
 }
 
-function displayTodosInCalendar() {}
+function goBackOneMonth() {
+  const days = document.getElementById("calendar-dates");
+  days.textContent = "";
+  date = subMonths(date, 1);
+  displayCalendar();
+  console.log("prev");
+}
 
-export { displayCalendar, CalendarNav };
+function goForthOneMonth() {
+  const days = document.getElementById("calendar-dates");
+  days.textContent = "";
+  date = addMonths(date, 1);
+  displayCalendar();
+  console.log("next");
+}
+
+function displayTodosInCalendar(date) {}
+
+function resetDate() {
+  date = new Date();
+}
+
+export { displayCalendar, CalendarNav, resetDate };

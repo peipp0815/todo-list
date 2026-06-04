@@ -1,4 +1,4 @@
-import { displayCalendar, CalendarNav } from "./calendarLogic.js";
+import { displayCalendar, CalendarNav, resetDate } from "./calendarLogic.js";
 import { updateProjects } from "./DOMlogic.js";
 import calendarContent from "./pages/calendar.js";
 import homeContent from "./pages/home.js";
@@ -21,6 +21,7 @@ function makeNavBar() {
   });
 
   document.getElementById("nav-calendar").addEventListener("click", () => {
+    resetDate();
     calendarContent();
     displayCalendar();
     CalendarNav();

@@ -88,76 +88,80 @@ function displayTodos(proj) {
     if (element.getAttribute("data-projectid") === proj.id) {
       const todosContainer = element;
       todosContainer.textContent = "";
-      proj.todoList.forEach((td) => {
-        const todoContainer = document.createElement("div");
-        todoContainer.classList.add("todo-container");
-        //create checkmark
-        const checkDone = document.createElement("input");
-        checkDone.setAttribute("type", "checkbox");
-        checkDone.classList.add("check-done");
-        checkDone.addEventListener("click", () => {
-          td.changeDone();
-
-          if (td.done === true) {
-            todoContainer.style.textDecoration = "line-through";
-            checkDone.checked = true;
-          } else {
-            todoContainer.style.textDecoration = "none";
-            checkDone.checked = false;
-          }
-        });
-        todoContainer.appendChild(checkDone);
-        //create todo title as a button to edit the todo
-        const todoTitle = document.createElement("button");
-        todoTitle.textContent = td.title;
-        todoTitle.setAttribute("command", "show-modal");
-        todoTitle.setAttribute("commandfor", "new-todo");
-        todoTitle.addEventListener("click", () => {
-          populateEditTodo(td);
-          const btn = document.getElementById("add-new-todo");
-          btn.textContent = "Save changes";
-          btn.removeEventListener("click", domCreateTodo);
-          btn.addEventListener("click", editTodo);
-          btn.setAttribute("data-tdid", td.id);
-          btn.setAttribute("data-projid", td.projid);
-        });
-        todoContainer.appendChild(todoTitle);
-        //assign data-priority to change left border color based on priority
-        if (td.priority === "p1") {
-          todoContainer.dataset.priority = "p1";
-        } else if (td.priority === "p2") {
-          todoContainer.dataset.priority = "p2";
-        } else if (td.priority === "p3") {
-          todoContainer.dataset.priority = "p3";
-        } else {
-          todoContainer.dataset.priority = "";
-        }
-        //create todo due date as a button just for aesthetics
-        const todoDueDate = document.createElement("button");
-        todoDueDate.textContent = td.dueDate;
-        todoDueDate.classList.add("todo-dueDate-in-project");
-        todoContainer.appendChild(todoDueDate);
-
-        todosContainer.appendChild(todoContainer);
-        //check if todo is done
-        if (td.done === true) {
-          todoContainer.style.textDecoration = "line-through";
-          checkDone.checked = true;
-        } else {
-          todoContainer.style.textDecoration = "none";
-          checkDone.checked = false;
-        }
-        //add a delete button
-        const deleteTodoBtn = document.createElement("button");
-        deleteTodoBtn.classList.add("delete-todo");
-        deleteTodoBtn.textContent = "X";
-        todoContainer.appendChild(deleteTodoBtn);
-        deleteTodoBtn.addEventListener("click", () => {
-          deleteTodo(td);
-          displayTodos(proj);
-        });
-      });
+      proj.todoList.forEach((td) => displayTodo(td, todosContainer));
     }
+  });
+}
+
+function displayTodo(td, todosContainer) {
+  const todoContainer = document.createElement("div");
+  todoContainer.classList.add("todo-container");
+  //create checkmark
+  const checkDone = document.createElement("input");
+  checkDone.setAttribute("type", "checkbox");
+  checkDone.classList.add("check-done");
+  checkDone.addEventListener("click", () => {
+    td.changeDone();
+
+    if (td.done === true) {
+      todoContainer.style.textDecoration = "line-through";
+      checkDone.checked = true;
+    } else {
+      todoContainer.style.textDecoration = "none";
+      checkDone.checked = false;
+    }
+  });
+  todoContainer.appendChild(checkDone);
+  //create todo title as a button to edit the todo
+  const todoTitle = document.createElement("button");
+  todoTitle.textContent = td.title;
+  todoTitle.setAttribute("command", "show-modal");
+  todoTitle.setAttribute("commandfor", "new-todo");
+  todoTitle.addEventListener("click", () => {
+    populateEditTodo(td);
+    const btn = document.getElementById("add-new-todo");
+    btn.textContent = "Save changes";
+    btn.removeEventListener("click", domCreateTodo);
+    btn.addEventListener("click", editTodo);
+    btn.setAttribute("data-tdid", td.id);
+    btn.setAttribute("data-projid", td.projid);
+  });
+  todoContainer.appendChild(todoTitle);
+  //assign data-priority to change left border color based on priority
+  if (td.priority === "p1") {
+    todoContainer.dataset.priority = "p1";
+  } else if (td.priority === "p2") {
+    todoContainer.dataset.priority = "p2";
+  } else if (td.priority === "p3") {
+    todoContainer.dataset.priority = "p3";
+  } else {
+    todoContainer.dataset.priority = "";
+  }
+  //create todo due date as a button just for aesthetics
+  const todoDueDate = document.createElement("button");
+  todoDueDate.textContent = td.dueDate;
+  todoDueDate.classList.add("todo-dueDate-in-project");
+  todoContainer.appendChild(todoDueDate);
+
+  todosContainer.appendChild(todoContainer);
+  //check if todo is done
+  if (td.done === true) {
+    todoContainer.style.textDecoration = "line-through";
+    checkDone.checked = true;
+  } else {
+    todoContainer.style.textDecoration = "none";
+    checkDone.checked = false;
+  }
+  //add a delete button
+  const deleteTodoBtn = document.createElement("button");
+  deleteTodoBtn.classList.add("delete-todo");
+  deleteTodoBtn.textContent = "X";
+  todoContainer.appendChild(deleteTodoBtn);
+  deleteTodoBtn.addEventListener("click", () => {
+    const proj =
+      ListOfProjects[ListOfProjects.findIndex((item) => item.id === td.projid)];
+    deleteTodo(td);
+    displayTodos(proj);
   });
 }
 
@@ -288,4 +292,5 @@ export {
   addProjectsToNavBar,
   updateProjects,
   clearDialogsOnClose,
+  displayTodo,
 };

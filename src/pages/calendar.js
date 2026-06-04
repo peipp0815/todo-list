@@ -33,17 +33,22 @@ function calendarContent() {
   nav.id = "calendar-navigation";
   monthHeader.appendChild(nav);
 
-  const left = document.createElement("span");
+  const leftWrapper = document.createElement("button");
+  leftWrapper.id = "calendar-previous";
+  nav.appendChild(leftWrapper);
+  /*const left = document.createElement("span");
   left.classList.add("iconify");
   left.dataset.icon = "mdi-arrow-left-drop-circle";
-  left.id = "calendar-previous";
-  nav.appendChild(left);
+  left.setAttribute("pointer-events", "none");
+  leftWrapper.appendChild(left);*/
 
+  const rightWrapper = document.createElement("button");
+  rightWrapper.id = "calendar-next";
+  nav.appendChild(rightWrapper);
   const right = document.createElement("span");
   right.classList.add("iconify");
   right.dataset.icon = "mdi-arrow-right-drop-circle";
-  right.id = "calendar-next";
-  nav.appendChild(right);
+  rightWrapper.appendChild(right);
 
   const monthBody = document.createElement("div");
   month.appendChild(monthBody);
