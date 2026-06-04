@@ -7,7 +7,7 @@ import {
   reassignProject,
   deleteTodo,
 } from "./appLogic.js";
-import { makeNavBar } from "./navLogic.js";
+import { makeNavBar, projectsInNavBar } from "./navLogic.js";
 
 function domCreateTodo() {
   const projid = document.getElementById("todo-project").value;
@@ -250,7 +250,6 @@ function addProjectsToNavBar() {
   for (let i = 0; i < ListOfProjects.length; i++) {
     const button = document.createElement("button");
     button.dataset.projectid = ListOfProjects[i].id;
-    console.log(ListOfProjects[i].name);
     button.textContent = ListOfProjects[i].name;
     console.log(button.textContent);
     navBarProjects.appendChild(button);
@@ -268,10 +267,11 @@ function switchEditToNewTodo() {
 }
 
 function updateProjects() {
+  console.log("upateProjects");
   addProjectsToNavBar();
   addProjectsToDropDownList();
   displayProjects();
-  makeNavBar();
+  projectsInNavBar();
 }
 
 function clearDialogsOnClose() {

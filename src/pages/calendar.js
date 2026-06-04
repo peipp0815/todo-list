@@ -36,11 +36,11 @@ function calendarContent() {
   const leftWrapper = document.createElement("button");
   leftWrapper.id = "calendar-previous";
   nav.appendChild(leftWrapper);
-  /*const left = document.createElement("span");
+  const left = document.createElement("span");
   left.classList.add("iconify");
   left.dataset.icon = "mdi-arrow-left-drop-circle";
   left.setAttribute("pointer-events", "none");
-  leftWrapper.appendChild(left);*/
+  leftWrapper.appendChild(left);
 
   const rightWrapper = document.createElement("button");
   rightWrapper.id = "calendar-next";

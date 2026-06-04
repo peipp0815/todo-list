@@ -6,14 +6,6 @@ import projectContent from "./pages/projects.js";
 import { switchEditToNewTodo } from "./DOMlogic.js";
 
 function makeNavBar() {
-  const projBtns = document.getElementById("nav-projects").childNodes;
-  projBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      projectContent(btn.dataset.projectid);
-      updateProjects();
-    });
-  });
-
   const homeBtn = document.getElementById("nav-home");
   homeBtn.addEventListener("click", () => {
     homeContent();
@@ -30,4 +22,14 @@ function makeNavBar() {
   });
 }
 
-export { makeNavBar };
+function projectsInNavBar() {
+  const projBtns = document.getElementById("nav-projects").childNodes;
+  projBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      projectContent(btn.dataset.projectid);
+      updateProjects();
+    });
+  });
+}
+
+export { makeNavBar, projectsInNavBar };
