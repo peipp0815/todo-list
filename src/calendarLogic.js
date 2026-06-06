@@ -38,31 +38,44 @@ function displayCalendar() {
   const days = document.getElementById("calendar-dates");
 
   for (let x = 1; x < firstDayIndex; x++) {
-    let div = document.createElement("div");
-    div.textContent += "";
-    days.appendChild(div);
+    let btn = document.createElement("button");
+    btn.textContent += "";
+    days.appendChild(btn);
   }
 
   for (let i = 1; i <= numberOfDays; i++) {
-    let div = document.createElement("div");
+    let btn = document.createElement("button");
     let currentDate = new Date(getYear(date), getMonth(date), i);
-    div.dataset.date = formatISO(currentDate, { representation: "date" });
-    div.textContent += i;
-    days.appendChild(div);
+    btn.dataset.date = formatISO(currentDate, { representation: "date" });
+    btn.textContent += i;
+    days.appendChild(btn);
 
     if (
       currentDate.getFullYear() === new Date().getFullYear() &&
       currentDate.getMonth() === new Date().getMonth() &&
       currentDate.getDate() === new Date().getDate()
     ) {
-      div.classList.add("current-date");
+      btn.classList.add("current-date");
     }
-
+    const ListOfTodaysTodos = [];
+    let todoDueOnThisDay = false;
     ListOfTodos.forEach((todo) => {
-      if (div.dataset.date === todo.dueDate) {
-        div.classList.add("todo-due-on-this-day");
+      if (btn.dataset.date === todo.dueDate) {
+        btn.classList.add("todo-due-on-this-day");
+        ListOfTodaysTodos.push(todo);
+        console.log(ListOfTodaysTodos);
+        todoDueOnThisDay = true;
       }
     });
+    if (todoDueOnThisDay === true) {
+      btn.addEventListener("click", () => {
+        btn.setAttribute("command", "show-modal");
+        btn.setAttribute("commandfor", "calendar-todo-list");
+        displayTodosInCalendar(ListOfTodaysTodos);
+      });
+    } else {
+      btn.classList.remove("todo-due-on-this-day");
+    }
   }
 }
 
@@ -90,7 +103,20 @@ function goForthOneMonth() {
   console.log("next");
 }
 
-function displayTodosInCalendar(date) {}
+function displayTodosInCalendar(list) {
+  console.log(list);
+  const container = document.getElementById("calendar-todos-container");
+  container.textContent = "";
+  list.forEach((todo) => {
+    const todoContainer = document.createElement("div");
+    for (const [key, value] of Object.entries(todo)) {
+      const entry = document.createElement("div");
+      entry.textContent += `${key}: ${value}`;
+      todoContainer.appendChild(entry);
+    }
+    container.appendChild(todoContainer);
+  });
+}
 
 function resetDate() {
   date = new Date();

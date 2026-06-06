@@ -28,6 +28,7 @@ function projectsInNavBar() {
     btn.addEventListener("click", () => {
       projectContent(btn.dataset.projectid);
       updateProjects();
+      switchEditToNewTodo();
     });
   });
 }

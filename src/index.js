@@ -9,7 +9,7 @@ import {
   clearDialogsOnClose,
 } from "./DOMlogic.js";
 import projectContent from "./pages/projects.js";
-import { makeNavBar } from "./navLogic.js";
+import { makeNavBar, projectsInNavBar } from "./navLogic.js";
 
 homeContent();
 dropdownListProjects();
@@ -20,3 +20,4 @@ addProjectsToNavBar();
 
 makeNavBar();
 clearDialogsOnClose();
+projectsInNavBar();

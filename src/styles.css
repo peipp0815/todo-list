@@ -318,8 +318,8 @@ button.delete-todo:hover,
   grid-template-columns: repeat(7, 1fr);
 }
 
-#calendar-weekdays div,
-#calendar-dates div {
+#calendar-weekdays button,
+#calendar-dates button {
   display: flex;
   justify-content: center;
   align-items: center;
