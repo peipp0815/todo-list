@@ -109,10 +109,21 @@ function displayTodosInCalendar(list) {
   container.textContent = "";
   list.forEach((todo) => {
     const todoContainer = document.createElement("div");
-    for (const [key, value] of Object.entries(todo)) {
-      const entry = document.createElement("div");
-      entry.textContent += `${key}: ${value}`;
-      todoContainer.appendChild(entry);
+    todoContainer.classList.add("calendar-todo-container");
+    const selectedKeys = [
+      "title",
+      "description",
+      "dueDate",
+      "priority",
+      "done",
+    ];
+
+    for (const key in todo) {
+      if (selectedKeys.includes(key)) {
+        const propContainer = document.createElement("div");
+        propContainer.textContent = `${capitalizeFirstLetter(key)}: ${todo[key]}`;
+        todoContainer.appendChild(propContainer);
+      }
     }
     container.appendChild(todoContainer);
   });
@@ -120,6 +131,10 @@ function displayTodosInCalendar(list) {
 
 function resetDate() {
   date = new Date();
+}
+
+function capitalizeFirstLetter(val) {
+  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
 }
 
 export { displayCalendar, CalendarNav, resetDate };

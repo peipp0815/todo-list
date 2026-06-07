@@ -333,7 +333,6 @@ button.delete-todo:hover,
   border-top: 10px solid transparent;
 }
 
-svg,
-svg path {
-  pointer-events: none;
+.calendar-todo-container {
+  padding: 8px;
 }
