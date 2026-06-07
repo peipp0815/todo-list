@@ -16,7 +16,6 @@ function domCreateTodo() {
     document.getElementById("todo-description").value,
     document.getElementById("todo-dueDate").value,
     document.getElementById("todo-priority").value,
-    "checklist",
     projid,
   );
 
