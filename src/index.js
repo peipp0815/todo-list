@@ -10,6 +10,9 @@ import {
 } from "./DOMlogic.js";
 import projectContent from "./pages/projects.js";
 import { makeNavBar, projectsInNavBar } from "./navLogic.js";
+import { readStorage } from "./appLogic.js";
+
+readStorage();
 
 homeContent();
 dropdownListProjects();

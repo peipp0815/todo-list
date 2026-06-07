@@ -1,9 +1,9 @@
 class project {
-  constructor(name, deletable) {
-    this.id = self.crypto.randomUUID();
+  constructor(name, deletable, id, todoList) {
     this.name = name;
-    this.todoList = [];
     this.deletable = deletable;
+    this.id = id;
+    this.todoList = todoList;
   }
   removeTodo(todoID) {
     const index = this.todoList.findIndex((item) => item.id === todoID);
@@ -11,6 +11,11 @@ class project {
       this.todoList.splice(index, 1);
     }
   }
+  /* toJSON() {
+    return {
+      name: this.name,
+    };
+  } */
 }
 
 class todo {
@@ -28,12 +33,18 @@ class todo {
   }
 }
 
-const ListOfProjects = [];
-const ListOfTodos = [];
+let ListOfProjects = [];
+let ListOfTodos = [];
 
-function createProject(name, deletable = true) {
-  const newProject = new project(name, deletable);
+function createProject(
+  name,
+  deletable = true,
+  id = self.crypto.randomUUID(),
+  todoList = [],
+) {
+  const newProject = new project(name, deletable, id, todoList);
   ListOfProjects.push(newProject);
+  localStorage.setItem("ListOfProjects", JSON.stringify(ListOfProjects));
   return newProject;
 }
 
@@ -42,10 +53,12 @@ const defaultProject = createProject("Inbox", false);
 function createTodo(title, description, dueDate, priority, projid) {
   const newTodo = new todo(title, description, dueDate, priority, projid);
   ListOfTodos.push(newTodo);
+  localStorage.setItem("ListOfTodos", JSON.stringify(ListOfTodos));
   const index = ListOfProjects.findIndex((item) => item.id === projid);
   console.log(ListOfProjects);
   if (index > -1) {
     ListOfProjects[index].todoList.push(newTodo);
+    localStorage.setItem("ListOfProjects", JSON.stringify(ListOfProjects));
     console.log(ListOfProjects);
   }
 
@@ -53,20 +66,29 @@ function createTodo(title, description, dueDate, priority, projid) {
 }
 
 function reassignProject(td, proj) {
-  deleteTodo(td);
+  const index = ListOfProjects.findIndex((item) => item.id === td.projid);
+  if (index > -1) {
+    ListOfProjects[index].removeTodo(td.id);
+  }
+
   td.projid = proj.id;
   proj.todoList.push(td);
+
+  localStorage.setItem("ListOfProjects", JSON.stringify(ListOfProjects));
+  localStorage.setItem("ListOfTodos", JSON.stringify(ListOfTodos));
 }
 
 function deleteTodo(td) {
   const index = ListOfProjects.findIndex((item) => item.id === td.projid);
   if (index > -1) {
     ListOfProjects[index].removeTodo(td.id);
+    localStorage.setItem("ListOfProjects", JSON.stringify(ListOfProjects));
   }
 
   const index2 = ListOfTodos.indexOf(td);
   if (index2 > -1) {
     ListOfTodos.splice(index2, 1);
+    localStorage.setItem("ListOfTodos", JSON.stringify(ListOfTodos));
   }
 }
 
@@ -89,6 +111,29 @@ function deleteProject(proj, preserveTodos) {
       ListOfProjects.splice(index2, 1);
     }
   }
+
+  localStorage.setItem("ListOfProjects", JSON.stringify(ListOfProjects));
+  localStorage.setItem("ListOfTodos", JSON.stringify(ListOfTodos));
+}
+
+function readStorage() {
+  console.log(ListOfProjects);
+  let projectsData = JSON.parse(localStorage.getItem("ListOfProjects")) || [];
+  console.log(projectsData);
+  ListOfProjects = projectsData.map(
+    (projectItem) =>
+      new project(
+        projectItem.name,
+        projectItem.deletable,
+        projectItem.id,
+        projectItem.todoList,
+      ),
+  );
+
+  /*ListOfProjects = JSON.parse(localStorage.getItem("ListOfProjects"));*/
+  console.log(ListOfProjects);
+  let todoData = JSON.parse(localStorage.getItem("ListOfTodos")) || [];
+  ListOfTodos = todoData.map((todoItem) => new todo(todoItem));
 }
 
 export {
@@ -100,4 +145,5 @@ export {
   deleteTodo,
   deleteProject,
   ListOfTodos,
+  readStorage,
 };
