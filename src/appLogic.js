@@ -36,10 +36,14 @@ let ListOfTodos = [];
 
 readStorage();
 let defaultProject;
-if (ListOfProjects === []) {
+console.log(ListOfProjects);
+if (ListOfProjects === undefined || ListOfProjects.length == 0) {
   defaultProject = createProject("Inbox", false);
+  console.log("hai");
 } else {
   defaultProject = ListOfProjects[0];
+  console.log(defaultProject);
+  console.log("hey");
 }
 
 function createProject(
