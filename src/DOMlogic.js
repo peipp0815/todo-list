@@ -6,6 +6,7 @@ import {
   deleteProject,
   reassignProject,
   deleteTodo,
+  updateStorage,
 } from "./appLogic.js";
 import { makeNavBar, projectsInNavBar } from "./navLogic.js";
 
@@ -76,6 +77,8 @@ function editTodo() {
   document.getElementById("todo-dueDate").value = "";
   document.getElementById("todo-priority").value = "";
   document.getElementById("todo-project").value = defaultProject.id;
+
+  updateStorage();
 }
 
 function displayTodos(proj) {

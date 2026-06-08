@@ -10,31 +10,37 @@ class project {
     if (index > -1) {
       this.todoList.splice(index, 1);
     }
+    updateStorage();
   }
-  /* toJSON() {
-    return {
-      name: this.name,
-    };
-  } */
 }
 
 class todo {
-  constructor(title, description, dueDate, priority, projid) {
+  constructor(title, description, dueDate, priority, projid, id, done) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
-    this.id = self.crypto.randomUUID();
     this.projid = projid;
-    this.done = false;
+    this.id = id;
+    this.done = done;
   }
   changeDone() {
     this.done = !this.done;
+    updateStorage();
   }
 }
 
 let ListOfProjects = [];
+console.log(ListOfProjects);
 let ListOfTodos = [];
+
+readStorage();
+let defaultProject;
+if (ListOfProjects === []) {
+  defaultProject = createProject("Inbox", false);
+} else {
+  defaultProject = ListOfProjects[0];
+}
 
 function createProject(
   name,
@@ -44,24 +50,36 @@ function createProject(
 ) {
   const newProject = new project(name, deletable, id, todoList);
   ListOfProjects.push(newProject);
-  localStorage.setItem("ListOfProjects", JSON.stringify(ListOfProjects));
+  updateStorage();
   return newProject;
 }
 
-const defaultProject = createProject("Inbox", false);
-
-function createTodo(title, description, dueDate, priority, projid) {
-  const newTodo = new todo(title, description, dueDate, priority, projid);
+function createTodo(
+  title,
+  description,
+  dueDate,
+  priority,
+  projid,
+  id = self.crypto.randomUUID(),
+  done = false,
+) {
+  const newTodo = new todo(
+    title,
+    description,
+    dueDate,
+    priority,
+    projid,
+    id,
+    done,
+  );
   ListOfTodos.push(newTodo);
-  localStorage.setItem("ListOfTodos", JSON.stringify(ListOfTodos));
+
   const index = ListOfProjects.findIndex((item) => item.id === projid);
-  console.log(ListOfProjects);
+
   if (index > -1) {
     ListOfProjects[index].todoList.push(newTodo);
-    localStorage.setItem("ListOfProjects", JSON.stringify(ListOfProjects));
-    console.log(ListOfProjects);
   }
-
+  updateStorage();
   return newTodo;
 }
 
@@ -73,23 +91,20 @@ function reassignProject(td, proj) {
 
   td.projid = proj.id;
   proj.todoList.push(td);
-
-  localStorage.setItem("ListOfProjects", JSON.stringify(ListOfProjects));
-  localStorage.setItem("ListOfTodos", JSON.stringify(ListOfTodos));
+  updateStorage();
 }
 
 function deleteTodo(td) {
   const index = ListOfProjects.findIndex((item) => item.id === td.projid);
   if (index > -1) {
     ListOfProjects[index].removeTodo(td.id);
-    localStorage.setItem("ListOfProjects", JSON.stringify(ListOfProjects));
   }
 
   const index2 = ListOfTodos.indexOf(td);
   if (index2 > -1) {
     ListOfTodos.splice(index2, 1);
-    localStorage.setItem("ListOfTodos", JSON.stringify(ListOfTodos));
   }
+  updateStorage();
 }
 
 function deleteProject(proj, preserveTodos) {
@@ -112,13 +127,13 @@ function deleteProject(proj, preserveTodos) {
     }
   }
 
-  localStorage.setItem("ListOfProjects", JSON.stringify(ListOfProjects));
-  localStorage.setItem("ListOfTodos", JSON.stringify(ListOfTodos));
+  updateStorage();
 }
 
 function readStorage() {
+  console.log("Red strage");
   console.log(ListOfProjects);
-  let projectsData = JSON.parse(localStorage.getItem("ListOfProjects")) || [];
+  let projectsData = safeJsonParse(localStorage.getItem("ListOfProjects"), []);
   console.log(projectsData);
   ListOfProjects = projectsData.map(
     (projectItem) =>
@@ -126,14 +141,67 @@ function readStorage() {
         projectItem.name,
         projectItem.deletable,
         projectItem.id,
-        projectItem.todoList,
+        projectItem.todoList.map(
+          (todoItem) =>
+            new todo(
+              todoItem.title,
+              todoItem.description,
+              todoItem.dueDate,
+              todoItem.priority,
+              todoItem.projid,
+              todoItem.id,
+              todoItem.done,
+            ),
+        ),
       ),
   );
+  // I'm not reading ListOfTodos from storage because I want the todos in todoList and ListOfTodos too be the same.
+  ListOfProjects.forEach((project) => {
+    // Loop through each todo in the project's todoList
+    project.todoList.forEach((td) => {
+      // Avoid duplicates: check if todo already exists in ListOfTodos
+      if (!ListOfTodos.some((existingTd) => existingTd.id === td.id)) {
+        ListOfTodos.push(td);
+      }
+    });
+  });
 
-  /*ListOfProjects = JSON.parse(localStorage.getItem("ListOfProjects"));*/
+  /*localStorage.clear();*/
+  /*ListOfProjects = JSON.parse(localStorage.getItem("ListOfProjects")); 
   console.log(ListOfProjects);
-  let todoData = JSON.parse(localStorage.getItem("ListOfTodos")) || [];
-  ListOfTodos = todoData.map((todoItem) => new todo(todoItem));
+  console.log(localStorage.getItem("ListOfTodos"));
+  let todoData = safeJsonParse(localStorage.getItem("ListOfTodos"), []);
+  console.log(todoData);
+
+  ListOfTodos = todoData.map(
+    (todoItem) =>
+      new todo(
+        todoItem.title,
+        todoItem.description,
+        todoItem.dueDate,
+        todoItem.priority,
+        todoItem.projid,
+        todoItem.id,
+        todoItem.done,
+      ),
+  ); */
+  console.log(ListOfTodos);
+}
+
+function safeJsonParse(str, defaultValue) {
+  try {
+    return JSON.parse(str) || defaultValue;
+  } catch (error) {
+    return defaultValue;
+  }
+}
+
+function updateStorage() {
+  console.log("update storage");
+  console.log(ListOfProjects);
+  console.log(ListOfTodos);
+  localStorage.setItem("ListOfProjects", JSON.stringify(ListOfProjects));
+  localStorage.setItem("ListOfTodos", JSON.stringify(ListOfTodos));
 }
 
 export {
@@ -146,4 +214,5 @@ export {
   deleteProject,
   ListOfTodos,
   readStorage,
+  updateStorage,
 };
