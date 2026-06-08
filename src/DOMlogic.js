@@ -7,6 +7,7 @@ import {
   reassignProject,
   deleteTodo,
   updateStorage,
+  readStorage,
 } from "./appLogic.js";
 import { makeNavBar, projectsInNavBar } from "./navLogic.js";
 
@@ -41,6 +42,7 @@ function populateEditTodo(td) {
 }
 
 function editTodo() {
+  readStorage();
   const btn = document.getElementById("add-new-todo");
   const projid = btn.getAttribute("data-projid");
   const tdid = btn.getAttribute("data-tdid");
@@ -82,6 +84,7 @@ function editTodo() {
 }
 
 function displayTodos(proj) {
+  readStorage();
   const todosContainers = document.querySelectorAll(
     "[data-projectid].todos-container",
   );
@@ -168,6 +171,7 @@ function displayTodo(td, todosContainer) {
 }
 
 function displayProjects() {
+  readStorage();
   const projects = document.getElementById("projects");
   if (projects !== null) {
     projects.textContent = "";
@@ -269,6 +273,7 @@ function switchEditToNewTodo() {
 }
 
 function updateProjects() {
+  readStorage();
   console.log("upateProjects");
   addProjectsToNavBar();
   addProjectsToDropDownList();

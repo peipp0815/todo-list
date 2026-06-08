@@ -6,6 +6,7 @@ class project {
     this.todoList = todoList;
   }
   removeTodo(todoID) {
+    readStorage();
     const index = this.todoList.findIndex((item) => item.id === todoID);
     if (index > -1) {
       this.todoList.splice(index, 1);
@@ -25,6 +26,7 @@ class todo {
     this.done = done;
   }
   changeDone() {
+    readStorage();
     this.done = !this.done;
     updateStorage();
   }
@@ -52,6 +54,7 @@ function createProject(
   id = self.crypto.randomUUID(),
   todoList = [],
 ) {
+  readStorage();
   const newProject = new project(name, deletable, id, todoList);
   ListOfProjects.push(newProject);
   updateStorage();
@@ -67,6 +70,7 @@ function createTodo(
   id = self.crypto.randomUUID(),
   done = false,
 ) {
+  readStorage();
   const newTodo = new todo(
     title,
     description,
@@ -88,6 +92,7 @@ function createTodo(
 }
 
 function reassignProject(td, proj) {
+  readStorage();
   const index = ListOfProjects.findIndex((item) => item.id === td.projid);
   if (index > -1) {
     ListOfProjects[index].removeTodo(td.id);
@@ -99,6 +104,7 @@ function reassignProject(td, proj) {
 }
 
 function deleteTodo(td) {
+  readStorage();
   const index = ListOfProjects.findIndex((item) => item.id === td.projid);
   if (index > -1) {
     ListOfProjects[index].removeTodo(td.id);
@@ -112,6 +118,7 @@ function deleteTodo(td) {
 }
 
 function deleteProject(proj, preserveTodos) {
+  readStorage();
   if (proj.deletable === true) {
     if (preserveTodos === true) {
       for (const td of proj.todoList) {
