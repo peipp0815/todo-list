@@ -53,7 +53,7 @@ function editTodo() {
     const tdIndex = proj.todoList.findIndex((item) => item.id === tdid);
     if (tdIndex > -1) {
       const td = proj.todoList[tdIndex];
-
+      console.log("gettin edit todo values");
       td.title = document.getElementById("todo-title").value;
       td.description = document.getElementById("todo-description").value;
       td.dueDate = document.getElementById("todo-dueDate").value;
@@ -69,7 +69,7 @@ function editTodo() {
           displayTodos(newProj);
         }
       }
-
+      updateStorage();
       displayTodos(proj);
     }
   }
